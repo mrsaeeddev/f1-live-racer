@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { Text, View, StyleSheet } from 'react-native';
 import PrimaryButton from '../components/PrimaryButton'
 import Modal from 'react-native-modal';
-import { WHITE_COLOR, GRAY_COLOR } from '../constants/colors';
+import { WHITE_COLOR, GRAY_COLOR, SECONDARY_COLOR } from '../constants/colors';
 
-function ModalComponent({ data, isVisible, toggleModal, startRace, index, raceStarted, exitRace }) {
+function ModalComponent({ data, isVisible, toggleModal, startRace, index, raceStarted, exitRace, closeModal }) {
   const [playerCount, setPlayerCount] = useState(data && data.currentPlayers);
 
   useEffect(() => {
@@ -33,12 +33,17 @@ function ModalComponent({ data, isVisible, toggleModal, startRace, index, raceSt
       paddingBottom: 20,
     },
     modalValues: {
-      color: GRAY_COLOR,
+      color: SECONDARY_COLOR,
+      textAlign: 'center',
+      marginTop: 20,
+      marginBottom: 20,
       fontSize: 18
     },
     horizontalRule: {
       borderBottomColor: GRAY_COLOR,
       borderBottomWidth: 1,
+      marginTop: 30,
+      marginBottom: 40,
     },
     modalValuesContainer: {
       width: '97%',
@@ -51,6 +56,8 @@ function ModalComponent({ data, isVisible, toggleModal, startRace, index, raceSt
       justifyContent: 'center',
       alignContent:'center',
       fontSize: 20,
+      marginBottom: 10,
+      textAlign: 'center'
     }
   });
 
@@ -76,7 +83,7 @@ function ModalComponent({ data, isVisible, toggleModal, startRace, index, raceSt
             {raceStarted ? data && playerCount === data.totalPlayers ? <Text>Race Started</Text> : <Text>Waiting for other drivers to join!</Text> : null}
             {!raceStarted && <PrimaryButton text="Start Race" nextHandler={() => startRace(index)} />}
             <PrimaryButton text="Exit Race" nextHandler={() => leaveRace()} />
-            <PrimaryButton text="Back " nextHandler={() => toggleModal()} />
+            <PrimaryButton text="Back " nextHandler={() => closeModal()} />
           </View>
         </View>
       </Modal>

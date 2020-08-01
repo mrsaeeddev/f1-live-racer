@@ -49,18 +49,16 @@ function TracksList() {
 
     const toggleModal = (i) => {
     Number.isInteger(i) && setIndex(i);
-    if (raceStarted) {
-        if(activeIndex === index) {
-            setModalVisible(!isModalVisible);
-        }
-    }  
-    setModalVisible(!isModalVisible)
-     
+   setModalVisible(!isModalVisible)
     };
 
     const startRace = (i) => {
         setActiveIndex(i);
         setRaceStarted(true);
+    }
+
+    const closeModal = () => {
+        setModalVisible(false);
     }
 
     const exitRace = () => {
@@ -71,10 +69,21 @@ function TracksList() {
 
     return (
         <View style={styles.trackListContainer}>
-            {raceStarted ? (activeIndex === index ? <ModalComponent data={data[index]} index={index} isVisible={isModalVisible} toggleModal={toggleModal} startRace={startRace} exitRace={exitRace} raceStarted={raceStarted} /> : Alert.alert('You are already in a track!')) : <ModalComponent data={data[index]} index={index} isVisible={isModalVisible} toggleModal={toggleModal} startRace={startRace} exitRace={exitRace} raceStarted={raceStarted} />}
-            <Track toggleModal={toggleModal} image={abudhabi_track} data={data[0]} index={0} activeTrack={activeIndex} isVisible={isModalVisible}/>
-            <Track toggleModal={toggleModal} image={shanghai_track} data={data[1]} index={1} activeTrack={activeIndex} isVisible={isModalVisible} />
-            <Track toggleModal={toggleModal} image={monte_track} data={data[2]} index={2} activeTrack={activeIndex} isVisible={isModalVisible} />
+            {console.log(activeIndex,index,raceStarted, isModalVisible)}
+            {raceStarted ? 
+            (activeIndex === index ? 
+            <ModalComponent data={data[index]}
+             closeModal={closeModal} index={index}
+              isVisible={isModalVisible} toggleModal={toggleModal} 
+              startRace={startRace} exitRace={exitRace} raceStarted={raceStarted}
+               /> : Alert.alert('You are already in a track!')) : 
+               <ModalComponent data={data[index]} index={index} 
+               isVisible={isModalVisible} toggleModal={toggleModal}
+                closeModal={closeModal} startRace={startRace} 
+                exitRace={exitRace} raceStarted={raceStarted} />}
+            <Track toggleModal={toggleModal} image={abudhabi_track} raceStarted={raceStarted} data={data[0]} index={0} activeTrack={activeIndex} isVisible={isModalVisible}/>
+            <Track toggleModal={toggleModal} image={shanghai_track} raceStarted={raceStarted} data={data[1]} index={1} activeTrack={activeIndex} isVisible={isModalVisible} />
+            <Track toggleModal={toggleModal} image={monte_track} data={data[2]} raceStarted={raceStarted} index={2} activeTrack={activeIndex} isVisible={isModalVisible} />
             {raceStarted ? <Text style={styles.textContainer}>You are already competing in a track. Exit that track to join some other track!</Text>:<Tap />}
         </View>
         );

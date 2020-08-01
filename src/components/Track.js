@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, StyleSheet, Image, Text, TouchableOpacity } from 'react-native';
 import { BLACK_COLOR, GRAY_COLOR, WHITE_COLOR, SECONDARY_COLOR } from '../constants/colors';
 
-function Track({ toggleModal, image, data, index, activeTrack, isVisible }) {
+function Track({ toggleModal, image, data, index, activeTrack, raceStarted }) {
   const [currentActiveIndex, setCurrentActiveIndex] = useState('');
 
   const styles = StyleSheet.create({
@@ -50,7 +50,13 @@ function Track({ toggleModal, image, data, index, activeTrack, isVisible }) {
 
   const changeModalState = (i) => {
     setCurrentActiveIndex(i);
-    toggleModal(i);
+    if (raceStarted && currentActiveIndex === index) {
+    
+        toggleModal(i);
+    }
+    else if (!raceStarted) {
+      toggleModal(i);
+    }
   }
   
 
