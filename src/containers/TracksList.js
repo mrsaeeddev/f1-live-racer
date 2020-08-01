@@ -48,8 +48,14 @@ function TracksList() {
     }];
 
     const toggleModal = (i) => {
-        Number.isInteger(i) && setIndex(i);
-        setModalVisible(!isModalVisible)
+    Number.isInteger(i) && setIndex(i);
+    if (raceStarted) {
+        if(activeIndex === index) {
+            setModalVisible(!isModalVisible);
+        }
+    }  
+    setModalVisible(!isModalVisible)
+     
     };
 
     const startRace = (i) => {
@@ -59,12 +65,12 @@ function TracksList() {
 
     const exitRace = () => {
         setRaceStarted(false);
+        setActiveIndex(null);
         toggleModal();
     }
 
     return (
         <View style={styles.trackListContainer}>
-            {console.log(activeIndex,index,raceStarted,isModalVisible)}
             {raceStarted ? (activeIndex === index ? <ModalComponent data={data[index]} index={index} isVisible={isModalVisible} toggleModal={toggleModal} startRace={startRace} exitRace={exitRace} raceStarted={raceStarted} /> : Alert.alert('You are already in a track!')) : <ModalComponent data={data[index]} index={index} isVisible={isModalVisible} toggleModal={toggleModal} startRace={startRace} exitRace={exitRace} raceStarted={raceStarted} />}
             <Track toggleModal={toggleModal} image={abudhabi_track} data={data[0]} index={0} activeTrack={activeIndex} isVisible={isModalVisible}/>
             <Track toggleModal={toggleModal} image={shanghai_track} data={data[1]} index={1} activeTrack={activeIndex} isVisible={isModalVisible} />

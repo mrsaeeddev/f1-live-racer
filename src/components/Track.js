@@ -36,7 +36,6 @@ function Track({ toggleModal, image, data, index, activeTrack, isVisible }) {
     },
     logo: {
       width: 70,
-      backgroundColor: WHITE_COLOR,
       height: 50
     },
     row1: {
@@ -49,9 +48,9 @@ function Track({ toggleModal, image, data, index, activeTrack, isVisible }) {
     },
   });
 
-  const changeModalState = (index) => {
-    setCurrentActiveIndex(index);
-    !isVisible && toggleModal(index);
+  const changeModalState = (i) => {
+    setCurrentActiveIndex(i);
+    toggleModal(i);
   }
   
 
