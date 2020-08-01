@@ -13,7 +13,9 @@ function TrackScreen() {
   });
 
   return (
-    <View><Heading /><TracksList /></View>
+    <View>
+      <Heading /><TracksList />
+    </View>
   );
 }
 
